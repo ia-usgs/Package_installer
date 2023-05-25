@@ -1,0 +1,32 @@
+#This program is an attempt to create a script that will download .exe files needed and 
+#puts them in a folder created by the script, then it executes the files 
+#this is to try and expedite the process in which new systems are created in the absence of a app such as PDQ Inventory
+
+from urllib.request import urlretrieve
+import getpass
+import subprocess
+import os
+import shutil
+
+#if os.path.isdir('downloaded_exe/') == False:
+
+url = 'https://zoom.us/client/5.14.8.16213/ZoomInstallerFull.exe?archType=x64' #this is where we put the target URLS
+
+print('DOWNLOADING ZOOM')
+
+usrname = getpass.getuser()
+destination = f'C:\\Users\\{usrname}\\Downloads\\zoom.exe' #drops download file here
+
+download = urlretrieve(url, destination)
+
+print('file is now downloaded...')
+
+cmd = f'C:\\Users\\{usrname}\\Downloads\\zoom.exe' #executes .exe file from cmd
+returned_value = subprocess.call(cmd, shell=True)
+print('returned value: ', returned_value)
+
+if returned_value == 0:
+    print("exe file is now opened!")
+
+else:
+    print("failed to execute")
